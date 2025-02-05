@@ -1,21 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa">
 <head>
-    <title>sagheh redirect</title>
-    <script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>در حال انتقال</title>
+ <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const destValue = urlParams.get('dest');
             if (destValue) {
                  const newLink = `https://example.com/newpage?dest=${destValue}`;
-                 window.location.href = "exp://10.29.111.6:8081/--/"+destValue;
+                 window.location.href = "exp://10.29.111.7:8081/--/"+destValue;
             } else {
                 console.error("The 'dest' parameter is not found in the URL.");
             }
         };
     </script>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <p>در حال انتقال به پذیرنده</p>
+    <div class="container">
+        <h1>در حال انتقال به پذیرنده</h1>
+        <p>لطفاً منتظر بمانید تا انتقال شما انجام شود.</p>
+        <div class="spinner"></div>
+    </div>
 </body>
 </html>
