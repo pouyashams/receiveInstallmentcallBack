@@ -7,8 +7,9 @@
             // دریافت پارامترهای URL
             const urlParams = new URLSearchParams(window.location.search);
             const destValue = urlParams.get('dest');
-            const idValue = urlParams.get('id');  // دریافت شناسه id از URL
-
+            const idValue = urlParams.get('loan');  // دریافت شناسه id از URL
+            console.log(idValue);
+            console.log(destValue);
             // بررسی وجود پارامتر dest و id
             if (destValue && idValue) {
                 // ساخت URL جدید با استفاده از dest و id
