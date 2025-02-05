@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>sagheh redirect</title>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const destValue = urlParams.get('dest');
+            if (destValue) {
+                 const newLink = `https://example.com/newpage?dest=${destValue}`;
+                 window.location.href = "exp://10.29.111.7:8081/--/"+destValue;
+            } else {
+                console.error("The 'dest' parameter is not found in the URL.");
+            }
+        };
+    </script>
+</head>
+<body>
+    <p>در حال انتقال به پذیرنده</p>
+</body>
+</html>
