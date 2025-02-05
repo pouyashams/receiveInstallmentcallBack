@@ -6,7 +6,7 @@
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const destValue = urlParams.get('dest');
-            console.log(destValue)
+            console.log(destValue,12345)
             if (destValue) {
                  const newLink = `https://example.com/newpage?dest=${destValue}`;
                  window.location.href = "exp://10.29.111.6:8081/--/"+destValue;
