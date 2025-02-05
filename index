@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+r<!DOCTYPE html>
 <html>
 <head>
     <title>sagheh redirect</title>
@@ -8,7 +8,7 @@
             const destValue = urlParams.get('dest');
             if (destValue) {
                  const newLink = `https://example.com/newpage?dest=${destValue}`;
-                 window.location.href = "exp://10.29.111.7:8081/--/"+destValue;
+                 window.location.href = "exp://10.29.111.6:8081/--/"+destValue;
             } else {
                 console.error("The 'dest' parameter is not found in the URL.");
             }
