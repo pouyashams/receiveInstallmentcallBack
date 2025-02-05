@@ -4,21 +4,14 @@
     <title>sagheh redirect</title>
     <script>
         window.onload = function() {
-            // دریافت پارامترهای URL
             const urlParams = new URLSearchParams(window.location.search);
             const destValue = urlParams.get('dest');
-            const idValue = urlParams.get('loan');  // دریافت شناسه id از URL
-            console.log(idValue);
-            console.log(destValue);
-            // بررسی وجود پارامتر dest و id
-            if (destValue && idValue) {
-                // ساخت URL جدید با استفاده از dest و id
-                const newLink = `https://example.com/newpage?dest=${destValue}&id=${idValue}`;
-                
-                // ریدایرکت به URL جدید
-                window.location.href = "exp://10.29.111.6:8081/--/" + destValue + "?id=" + idValue;
+            console.log(destValue)
+            if (destValue) {
+                 const newLink = `https://example.com/newpage?dest=${destValue}`;
+                 window.location.href = "exp://10.29.111.6:8081/--/"+destValue;
             } else {
-                console.error("The 'dest' or 'id' parameter is not found in the URL.");
+                console.error("The 'dest' parameter is not found in the URL.");
             }
         };
     </script>
