@@ -1,82 +1,28 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>در حال انتقال</title>
- <script>
+    <title>sagheh redirect</title>
+    <script>
         window.onload = function() {
+            // دریافت پارامترهای URL
             const urlParams = new URLSearchParams(window.location.search);
             const destValue = urlParams.get('dest');
-            if (destValue) {
-                 const newLink = `https://example.com/newpage?dest=${destValue}`;
-                 window.location.href = "exp://10.29.111.6:8081/--/"+destValue;
+            const idValue = urlParams.get('id');  // دریافت شناسه id از URL
+
+            // بررسی وجود پارامتر dest و id
+            if (destValue && idValue) {
+                // ساخت URL جدید با استفاده از dest و id
+                const newLink = `https://example.com/newpage?dest=${destValue}&id=${idValue}`;
+                
+                // ریدایرکت به URL جدید
+                window.location.href = "exp://10.29.111.6:8081/--/" + destValue + "?id=" + idValue;
             } else {
-                console.error("The 'dest' parameter is not found in the URL.");
+                console.error("The 'dest' or 'id' parameter is not found in the URL.");
             }
         };
     </script>
-    <style>
-        body {
-            font-family: Tahoma, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 70vh;
-            text-align: center;
-        }
-
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 550px;
-        }
-
-        h2 {
-            color: #4CAF50;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        p {
-            color: #555;
-            font-size: 15px;
-            margin-bottom: 30px;
-	    font-weight: bold;
-        }
-
-        .spinner {
-            border: 8px solid #f3f3f3;
-            border-top: 8px solid #3498db;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 2s linear infinite;
-            margin: 20px auto;
-	    background-color: #e8eae5;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-
-        .button:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-    <div class="container">
-        <h2>عملیات دریافت قسط با موفقیت انجام شد</h1>
-        <p>... در حال انتقال به ساقه</p>
-        <div class="spinner"></div>
-    </div>
+    <p>Redirecting...</p>
 </body>
 </html>
