@@ -21,6 +21,50 @@
             overflow: hidden;
         }
 
+        .background-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("logo-icon-sagheh.png");
+            background-size: 50px;
+            background-repeat: repeat;
+            background-position: 0 0;
+            opacity: 0.03;
+            animation: moveIcons 10s infinite linear, spreadIcons 15s infinite linear;
+        }
+
+        @keyframes moveIcons {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(0px, 0px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes spreadIcons {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            25% {
+                transform: scale(1.1) translate(2px, 2px);
+            }
+            50% {
+                transform: scale(1) translate(0, 0);
+            }
+            75% {
+                transform: scale(1.1) translate(-2px, -2px);
+            }
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+        }
+
         .container {
             padding: 15px;
             border-radius: 25px;
@@ -34,6 +78,20 @@
             animation: fadeIn 1s ease-in-out;
             margin-top: 5vh;
             transition: background-color 0.5s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+                max-width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .icon {
+                font-size: 28px;
+            }
         }
 
         .success {
@@ -119,6 +177,7 @@
 
     </style>
     <script>
+        // تابع تبدیل اعداد به فارسی
         function convertToPersianNumbers(number) {
             const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
             return number.toString().split('').map(digit => persianNumbers[parseInt(digit)] || digit).join('');
@@ -138,10 +197,12 @@
             const formattedTime = now.toLocaleTimeString('fa-IR', {hour: '2-digit', minute: '2-digit'});
             document.getElementById("date-time").textContent = `${formattedTime} - ${formattedDate}`;
 
+            // تبدیل کد تراکنش به فارسی
             document.getElementById("tref").textContent = convertToPersianNumbers(trefValue);
 
+            // تبدیل مبلغ به فارسی و فرمت هزارگان
             document.getElementById("amount").textContent = `${convertToPersianNumbers(parseInt(amount).toLocaleString())} ریال`;
-
+            
             const container = document.querySelector(".container");
 
             if (payed) {
@@ -168,7 +229,11 @@
                     countdown--;
                     timer = setTimeout(updateTimer, 1000);
                 } else if (destValue) {
-                    window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
+                    if (payed) {
+                        window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
+                    } else {
+                        window.history.back();
+                    }
                 }
             }
 
@@ -178,19 +243,20 @@
 
             updateTimer();
 
-            setTimeout(function () {
-                document.getElementById("redirect-btn").click();
-            }, countdown * 1000);
-
             document.getElementById("redirect-btn").onclick = function () {
-                if (destValue) {
-                    window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
+                if (payed) {
+                    if (destValue) {
+                        window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
+                    }
+                } else {
+                    window.history.back();
                 }
             };
         };
     </script>
 </head>
 <body>
+<div class="background-icons"></div>
 <div class="container">
     <div id="icon" class="icon"></div>
     <h3>نتیجه تراکنش</h3>
