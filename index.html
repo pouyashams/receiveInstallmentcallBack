@@ -177,7 +177,7 @@
 
     </style>
     <script>
-        // تابع تبدیل اعداد به فارسی
+
         function convertToPersianNumbers(number) {
             const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
             return number.toString().split('').map(digit => persianNumbers[parseInt(digit)] || digit).join('');
@@ -229,11 +229,7 @@
                     countdown--;
                     timer = setTimeout(updateTimer, 1000);
                 } else if (destValue) {
-                    if (payed) {
-                        window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
-                    } else {
-                        window.history.back();
-                    }
+                    window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
                 }
             }
 
