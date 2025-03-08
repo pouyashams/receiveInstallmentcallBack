@@ -1,24 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="fa">
 <head>
-    <title>sagheh redirect</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نتیجه تراکنش</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        .timer {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
     <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const destValue = urlParams.get('dest');
-            const loanValue = urlParams.get('loan');
-            console.log(destValue,12345)
-            console.log(loanValue,12345)
-            if (destValue) {
-                 const newLink = `https://example.com/newpage?dest=${destValue}`;
-                 window.location.href = "exp://10.29.111.6:8081/--/"+destValue;
+            const trefValue = urlParams.get('tref');
+            const payed = urlParams.get('payed') === 'true';
+            let countdown = 10;
+
+            document.getElementById("tref").textContent = trefValue || "نامشخص";
+            if (payed) {
+                document.getElementById("status").textContent = "پرداخت با موفقیت انجام شد";
+                document.getElementById("status").classList.add("success");
             } else {
-                console.error("The 'dest' parameter is not found in the URL.");
+                document.getElementById("status").textContent = "پرداخت ناموفق بود";
+                document.getElementById("status").classList.add("error");
             }
+
+            function updateTimer() {
+                document.getElementById("timer").textContent = countdown;
+                if (countdown === 0 && destValue) {
+                    window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
+                } else {
+                    countdown--;
+                    setTimeout(updateTimer, 1000);
+                }
+            }
+            updateTimer();
         };
     </script>
 </head>
 <body>
-    <p>Redirecting...</p>
+    <div class="container">
+        <h2>نتیجه تراکنش</h2>
+        <p>کد تراکنش: <span id="tref"></span></p>
+        <p id="status"></p>
+        <p class="timer">انتقال در <span id="timer">10</span> ثانیه...</p>
+    </div>
 </body>
 </html>
