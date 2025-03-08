@@ -177,6 +177,12 @@
 
     </style>
     <script>
+        // تابع تبدیل اعداد به فارسی
+        function convertToPersianNumbers(number) {
+            const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            return number.toString().split('').map(digit => persianNumbers[parseInt(digit)] || digit).join('');
+        }
+
         window.onload = function () {
             const urlParams = new URLSearchParams(window.location.search);
             const destValue = urlParams.get('dest');
@@ -191,8 +197,12 @@
             const formattedTime = now.toLocaleTimeString('fa-IR', {hour: '2-digit', minute: '2-digit'});
             document.getElementById("date-time").textContent = `${formattedTime} - ${formattedDate}`;
 
-            document.getElementById("tref").textContent = trefValue;
-            document.getElementById("amount").textContent = `${amount} ریال`;
+            // تبدیل کد تراکنش به فارسی
+            document.getElementById("tref").textContent = convertToPersianNumbers(trefValue);
+
+            // تبدیل مبلغ به فارسی و فرمت هزارگان
+            document.getElementById("amount").textContent = `${convertToPersianNumbers(parseInt(amount).toLocaleString())} ریال`;
+            
             const container = document.querySelector(".container");
 
             if (payed) {
