@@ -202,7 +202,7 @@
 
             // تبدیل مبلغ به فارسی و فرمت هزارگان
             document.getElementById("amount").textContent = `${convertToPersianNumbers(parseInt(amount).toLocaleString())} ریال`;
-            
+
             const container = document.querySelector(".container");
 
             if (payed) {
@@ -244,12 +244,8 @@
             updateTimer();
 
             document.getElementById("redirect-btn").onclick = function () {
-                if (payed) {
-                    if (destValue) {
-                        window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
-                    }
-                } else {
-                    window.history.back();
+                if (destValue) {
+                    window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
                 }
             };
         };
