@@ -182,7 +182,7 @@
             const destValue = urlParams.get('dest');
             const trefValue = urlParams.get('tref') || "-";
             const payed = urlParams.get('payed') === 'true';
-            const amount = urlParams.get('amount') || "0";  // متغیر جدید برای مبلغ
+            const amount = urlParams.get('amount') || "0";
             let countdown = 10;
             let timer;
 
@@ -192,7 +192,7 @@
             document.getElementById("date-time").textContent = `${formattedTime} - ${formattedDate}`;
 
             document.getElementById("tref").textContent = trefValue;
-            document.getElementById("amount").textContent = `${amount} ریال`;  // نمایش مبلغ
+            document.getElementById("amount").textContent = `${amount} ریال`;
             const container = document.querySelector(".container");
 
             if (payed) {
@@ -239,7 +239,7 @@
                         window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
                     }
                 } else {
-                    window.history.back();  // بازگشت به صفحه قبلی در صورت ناموفق بودن
+                    window.history.back();
                 }
             };
         };
