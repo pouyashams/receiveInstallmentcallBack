@@ -36,20 +36,6 @@
             transition: background-color 0.5s ease;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                width: 90%;
-                padding: 10px;
-                max-width: 90%;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .icon {
-                font-size: 28px;
-            }
-        }
-
         .success {
             color: green;
         }
@@ -182,11 +168,7 @@
                     countdown--;
                     timer = setTimeout(updateTimer, 1000);
                 } else if (destValue) {
-                    if (payed) {
-                        window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
-                    } else {
-                        window.history.back();
-                    }
+                    window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
                 }
             }
 
@@ -201,12 +183,8 @@
             }, countdown * 1000);
 
             document.getElementById("redirect-btn").onclick = function () {
-                if (payed) {
-                    if (destValue) {
-                        window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
-                    }
-                } else {
-                    window.history.back();
+                if (destValue) {
+                    window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
                 }
             };
         };
