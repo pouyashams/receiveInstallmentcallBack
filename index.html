@@ -4,19 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نتیجه تراکنش</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Vazirmatn', sans-serif;
             text-align: center;
             padding: 50px;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
         }
         .container {
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             display: inline-block;
+            color: black;
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
         }
         .success {
             color: green;
@@ -27,6 +34,19 @@
         .timer {
             margin-top: 20px;
             font-size: 18px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            animation: bounce 1s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
     </style>
     <script>
@@ -41,9 +61,11 @@
             if (payed) {
                 document.getElementById("status").textContent = "پرداخت با موفقیت انجام شد";
                 document.getElementById("status").classList.add("success");
+                document.getElementById("icon").innerHTML = '<i class="fas fa-check-circle" style="color:green;"></i>';
             } else {
                 document.getElementById("status").textContent = "پرداخت ناموفق بود";
                 document.getElementById("status").classList.add("error");
+                document.getElementById("icon").innerHTML = '<i class="fas fa-times-circle" style="color:red;"></i>';
             }
 
             function updateTimer() {
@@ -61,6 +83,7 @@
 </head>
 <body>
     <div class="container">
+        <div id="icon" class="icon"></div>
         <h2>نتیجه تراکنش</h2>
         <p>کد تراکنش: <span id="tref"></span></p>
         <p id="status"></p>
