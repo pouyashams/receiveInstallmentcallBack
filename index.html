@@ -36,32 +36,20 @@
         }
 
         @keyframes moveIcons {
-            0% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(0px, 0px);
-            }
-            100% {
+            0%, 50%, 100% {
                 transform: translate(0, 0);
             }
         }
 
         @keyframes spreadIcons {
-            0% {
+            0%, 50%, 100% {
                 transform: scale(1) translate(0, 0);
             }
             25% {
                 transform: scale(1.1) translate(2px, 2px);
             }
-            50% {
-                transform: scale(1) translate(0, 0);
-            }
             75% {
                 transform: scale(1.1) translate(-2px, -2px);
-            }
-            100% {
-                transform: scale(1) translate(0, 0);
             }
         }
 
@@ -73,7 +61,6 @@
             color: black;
             width: 90%;
             max-width: 500px;
-            min-height: 300px;
             position: relative;
             animation: fadeIn 1s ease-in-out;
             margin-top: 5vh;
@@ -94,13 +81,8 @@
             }
         }
 
-        .success {
-            color: green;
-        }
-
-        .error {
-            color: red;
-        }
+        .success { color: green; }
+        .error { color: red; }
 
         @keyframes fadeIn {
             from {
@@ -120,12 +102,8 @@
         }
 
         @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .info {
@@ -136,13 +114,8 @@
             font-weight: bold;
         }
 
-        .mr-5 {
-            margin-right: 5px;
-        }
-
-        .ml-5 {
-            margin-left: 5px;
-        }
+        .mr-5 { margin-right: 5px; }
+        .ml-5 { margin-left: 5px; }
 
         .redirect-btn {
             color: white;
@@ -154,30 +127,17 @@
             margin-top: 15px;
         }
 
-        .success-btn {
-            background-color: #4CAF50;
-        }
+        .success-btn { background-color: #4CAF50; }
+        .error-btn { background-color: #f44336; }
 
-        .error-btn {
-            background-color: #f44336;
-        }
-
-        .redirect-btn:hover {
-            opacity: 0.8;
-        }
+        .redirect-btn:hover { opacity: 0.8; }
 
         .bottom-controls {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            text-align: center;
+            margin-top: 10px;
         }
 
     </style>
     <script>
-
         function convertToPersianNumbers(number) {
             const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
             return number.toString().split('').map(digit => persianNumbers[parseInt(digit)] || digit).join('');
@@ -194,18 +154,24 @@
 
             const now = new Date();
             const formattedDate = now.toLocaleDateString('fa-IR');
-            const formattedTime = now.toLocaleTimeString('fa-IR', {hour: '2-digit', minute: '2-digit'});
+            const formattedTime = now.toLocaleTimeString('fa-IR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
             document.getElementById("date-time").textContent = `${formattedTime} - ${formattedDate}`;
-
-            // تبدیل کد تراکنش به فارسی
             document.getElementById("tref").textContent = convertToPersianNumbers(trefValue);
-
-            // تبدیل مبلغ به فارسی و فرمت هزارگان
             document.getElementById("amount").textContent = `${convertToPersianNumbers(parseInt(amount).toLocaleString())} ریال`;
-
             const container = document.querySelector(".container");
-
+            const operation = urlParams.get('operation') || "";
             if (payed) {
+                let successMessage = "موفق";
+                if (operation === "settle") {
+                    successMessage = "تسویه با موفقیت انجام شد.";
+                } else if (operation === "receive") {
+                    successMessage = "دریافت قسط با موفقیت انجام شد.";
+                }
+                document.getElementById("operation-status").textContent = successMessage;
                 document.getElementById("status").textContent = "موفق";
                 document.getElementById("status").classList.add("success");
                 document.getElementById("icon").innerHTML = '<i class="fas fa-check-circle" style="color:green;"></i>';
@@ -213,28 +179,26 @@
                 document.getElementById("redirect-btn").textContent = `انتقال در ${countdown} ثانیه...`;
                 document.getElementById("redirect-btn").classList.add("success-btn");
             } else {
-                document.getElementById("status").textContent = "ناموفق";
-                document.getElementById("status").classList.add("error");
+                document.getElementById("operation-status").textContent = "تراکنش ناموفق بوده است.";
                 document.getElementById("icon").innerHTML = '<i class="fas fa-times-circle" style="color:red;"></i>';
                 container.style.backgroundColor = 'rgba(255,216,216,0.18)';
                 document.getElementById("redirect-btn").textContent = `بازگشت در ${countdown} ثانیه...`;
                 document.getElementById("redirect-btn").classList.add("error-btn");
+
+                document.getElementById("tref").parentElement.style.display = 'none';
+                document.getElementById("amount").parentElement.style.display = 'none';
+                document.getElementById("date-time").parentElement.style.display = 'none';
+                document.getElementById("status").parentElement.style.display = 'none';
             }
 
             function updateTimer() {
                 if (countdown >= 0) {
-                    document.getElementById("redirect-btn").textContent = payed
-                        ? `انتقال در ${countdown} ثانیه`
-                        : `بازگشت در ${countdown} ثانیه`;
+                    document.getElementById("redirect-btn").textContent = `بازگشت به ساقه در ${countdown} ثانیه`;
                     countdown--;
                     timer = setTimeout(updateTimer, 1000);
                 } else if (destValue) {
                     window.location.href = "exp://10.29.111.6:8081/--/" + destValue;
                 }
-            }
-
-            if (timer) {
-                clearTimeout(timer);
             }
 
             updateTimer();
@@ -251,13 +215,10 @@
 <div class="background-icons"></div>
 <div class="container">
     <div id="icon" class="icon"></div>
-    <h3>نتیجه تراکنش</h3>
+    <h3 id="operation-status">نتیجه تراکنش</h3>
     <div class="info"><span class="mr-5">کد تراکنش</span><span class="ml-5" id="tref"></span></div>
-    <div class="info"></div>
     <div class="info"><span class="mr-5">مبلغ</span><span class="ml-5" id="amount"></span></div>
-    <div class="info"></div>
     <div class="info"><span class="mr-5">وضعیت</span><span class="ml-5" id="status"></span></div>
-    <div class="info"></div>
     <div class="info"><span class="mr-5">زمان عملیات</span><span class="ml-5" id="date-time"></span></div>
 
     <div class="bottom-controls">
